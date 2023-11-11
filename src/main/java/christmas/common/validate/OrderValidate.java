@@ -1,13 +1,11 @@
 package christmas.common.validate;
 
 import christmas.common.constants.Menu;
+import christmas.common.constants.Symbol;
 import java.util.List;
 
 public class OrderValidate {
     private static final String ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
-    private static final char SYMBOL_COMMA = ',';
-    private static final char SYMBOL_HYPHEN_CHAR = '-';
-    private static final String SYMBOL_HYPHEN_STRING = "-";
     public static final String DIGITS_PATTERN = "\\d+";
     private static final int RANGE_MIN_NUMBER = 1;
     private static final int RANGE_MAX_NUMBER = 20;
@@ -20,7 +18,7 @@ public class OrderValidate {
     }
 
     public static void menuBlank(String input) {  // "-,-" 입력시 예외처리
-        if (input.startsWith(SYMBOL_HYPHEN_STRING)) {
+        if (input.startsWith(Symbol.HYPHEN.getStringSymbol())) {
             throw new IllegalArgumentException(ERROR_MESSAGE);
         }
     }
@@ -48,7 +46,7 @@ public class OrderValidate {
     private static int commaCount(String input) {
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == SYMBOL_COMMA) {
+            if (input.charAt(i) == Symbol.COMMA.getCharSymbol()) {
                 count++;
             }
         }
@@ -58,7 +56,7 @@ public class OrderValidate {
     private static int hyphenCount(String input) {
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == SYMBOL_HYPHEN_CHAR) {
+            if (input.charAt(i) == Symbol.HYPHEN.getCharSymbol()) {
                 count++;
             }
         }

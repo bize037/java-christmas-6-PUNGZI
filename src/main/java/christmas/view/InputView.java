@@ -2,6 +2,7 @@ package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.common.constants.InputMessage;
+import christmas.common.constants.Symbol;
 import christmas.common.utils.Utils;
 import christmas.common.validate.DateValidate;
 import christmas.common.validate.OrderValidate;
@@ -13,8 +14,6 @@ public class InputView {
     private HashMap<String, Integer> menusAndTotalNumbers = new HashMap<String, Integer>();
     private List<String> menus = new ArrayList<>();
     private int prices = 0;
-    private static final String SYMBOL_COMMA = ",";
-    private static final String SYMBOL_HYPHEN = "-";
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
 
@@ -53,7 +52,7 @@ public class InputView {
 
     private HashMap<String, Integer> inputOrderMenusAndTotalNumbers(String orderMenusAndTotalNumbers) {
         validateOrderMenusAndTotalNumbers(orderMenusAndTotalNumbers);
-        List<String> splitOrderMenusAndTotalNumbers = Utils.splitInList(orderMenusAndTotalNumbers, SYMBOL_COMMA);
+        List<String> splitOrderMenusAndTotalNumbers = Utils.splitInList(orderMenusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
         splitOrderMenusAndTotalNumbers.forEach(orderMenuAndTotalNumber -> {
             putInMapOrderMenusAndTotalNumbers(orderMenuAndTotalNumber);
         });
@@ -64,7 +63,7 @@ public class InputView {
 
     private void putInMapOrderMenusAndTotalNumbers(String orderMenuAndTotalNumber) {
         validateOrderMenuAndTotalNumber(orderMenuAndTotalNumber);
-        List<String> splitOrderMenuAndTotalNumber = Utils.splitInList(orderMenuAndTotalNumber, SYMBOL_HYPHEN);
+        List<String> splitOrderMenuAndTotalNumber = Utils.splitInList(orderMenuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
         validateOrderMenu(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
         validateTotalNumber(splitOrderMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
         menus.add(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
