@@ -17,25 +17,28 @@ public class InputView {
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
 
-    public void inputVisitDate() {
+    public int inputVisitDate() {
         System.out.println(InputMessage.INTRODUCE.getMessage());
         System.out.println(InputMessage.WHEN_VISIT_DATE.getMessage());
-        tryInputVisitDate();
+        return tryInputVisitDate();
     }
 
-    private void tryInputVisitDate() {
+    public HashMap<String, Integer> inputOrder() {
+        System.out.println(InputMessage.WHAT_ORDER.getMessage());
+        tryInputOrder();
+        return menusAndTotalNumbers;
+    }
+
+    private int tryInputVisitDate() {
         try {
             String inputVisitDate = Console.readLine();
-            dateValidate(inputVisitDate);
+            validateDate(inputVisitDate);
+            return Integer.parseInt(inputVisitDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             tryInputVisitDate();
         }
-    }
-
-    public void inputOrder() {
-        System.out.println(InputMessage.WHAT_ORDER.getMessage());
-        tryInputOrder();
+        return 0;
     }
 
     private void tryInputOrder() {
@@ -71,7 +74,7 @@ public class InputView {
         menusAndTotalNumbers.put(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitOrderMenuAndTotalNumber.get(1)));
     }
 
-    private void dateValidate(String visitDate) {
+    private void validateDate(String visitDate) {
         DateValidate.inBlank(visitDate);
         DateValidate.notNumber(visitDate);
         DateValidate.notRangeNumber(Integer.parseInt(visitDate));
