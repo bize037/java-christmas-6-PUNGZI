@@ -3,7 +3,7 @@ package christmas.common.constants;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Menu {
+public enum MenuAndPrice {
     APPETIZER_1("양송이수프", 6_000),
     APPETIZER_2("타파스", 5_500),
     APPETIZER_3("시저샐러드", 8_000),
@@ -23,7 +23,7 @@ public enum Menu {
     private final String menu;
     private final int price;
 
-    Menu(String menu, int price) {
+    MenuAndPrice(String menu, int price) {
         this.menu = menu;
         this.price = price;
     }
@@ -36,7 +36,7 @@ public enum Menu {
         return price;
     }
 
-    public static List<Menu> getAllMenus() {
-        return Arrays.asList(Menu.values());
+    public static List<MenuAndPrice> getAllMenus() {
+        return Arrays.asList(MenuAndPrice.values());
     }
 }
