@@ -9,26 +9,26 @@ public class EventController {
 
     public void startEvent() {
         inputView.inputVisitDateMessage();
-        inputVisitDate();
+        generateVisitDate();
         inputView.inputOrderMessage();
-        inputOrder();
+        generateOrder();
     }
 
-    private void inputVisitDate() {
+    private void generateVisitDate() {
         try {
             new VisitDate(inputView.inputConsole());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            inputVisitDate();
+            generateVisitDate();
         }
     }
 
-    private void inputOrder() {
+    private void generateOrder() {
         try {
             new MenuAndTotalNumber(inputView.inputConsole());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            inputOrder();
+            generateOrder();
         }
     }
 }

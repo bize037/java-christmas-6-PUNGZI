@@ -2,7 +2,7 @@ package christmas.domain;
 
 import christmas.common.constants.Symbol;
 import christmas.common.utils.Utils;
-import christmas.common.validate.OrderValidate;
+import christmas.common.validate.MenuAndTotalNumberValidate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,54 +16,54 @@ public class MenuAndTotalNumber {
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
 
-    public MenuAndTotalNumber(String orderMenusAndTotalNumbers) {
+    public MenuAndTotalNumber(String menusAndTotalNumbers) {
         temporaryMenusAndTotalNumbers.clear();
         menus.clear();
         prices = 0;
-        inputOrderMenusAndTotalNumbers(orderMenusAndTotalNumbers);
+        inputMenusAndTotalNumbers(menusAndTotalNumbers);
         this.MenusAndTotalNumbers = temporaryMenusAndTotalNumbers;
     }
 
-    private HashMap<String, Integer> inputOrderMenusAndTotalNumbers(String orderMenusAndTotalNumbers) {
-        validateOrderMenusAndTotalNumbers(orderMenusAndTotalNumbers);
-        List<String> splitOrderMenusAndTotalNumbers = Utils.splitInList(orderMenusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
-        splitOrderMenusAndTotalNumbers.forEach(orderMenuAndTotalNumber -> {
-            putInMapOrderMenusAndTotalNumbers(orderMenuAndTotalNumber);
+    private HashMap<String, Integer> inputMenusAndTotalNumbers(String menusAndTotalNumbers) {
+        validateMenusAndTotalNumbers(menusAndTotalNumbers);
+        List<String> splitMenusAndTotalNumbers = Utils.splitInList(menusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
+        splitMenusAndTotalNumbers.forEach(MenuAndTotalNumber -> {
+            putInMapMenusAndTotalNumbers(MenuAndTotalNumber);
         });
-        OrderValidate.overlapMenu(menus);
-        OrderValidate.overPriceSum(prices);
+        MenuAndTotalNumberValidate.overlapMenu(menus);
+        MenuAndTotalNumberValidate.overPriceSum(prices);
         return temporaryMenusAndTotalNumbers;
     }
 
-    private void putInMapOrderMenusAndTotalNumbers(String orderMenuAndTotalNumber) {
-        validateOrderMenuAndTotalNumber(orderMenuAndTotalNumber);
-        List<String> splitOrderMenuAndTotalNumber = Utils.splitInList(orderMenuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
-        validateOrderMenu(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
-        validateTotalNumber(splitOrderMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
-        menus.add(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
-        prices += Integer.parseInt(splitOrderMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
-        temporaryMenusAndTotalNumbers.put(splitOrderMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitOrderMenuAndTotalNumber.get(1)));
+    private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) {
+        validateMenuAndTotalNumber(menuAndTotalNumber);
+        List<String> splitMenuAndTotalNumber = Utils.splitInList(menuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
+        validateMenu(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
+        validateTotalNumber(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
+        menus.add(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
+        prices += Integer.parseInt(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
+        temporaryMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
     }
 
-    private void validateOrderMenusAndTotalNumbers(String orderMenusAndTotalNumbers) {
-        OrderValidate.inBlank(orderMenusAndTotalNumbers);
-        OrderValidate.notInCharacter(orderMenusAndTotalNumbers);
+    private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
+        MenuAndTotalNumberValidate.inBlank(menusAndTotalNumbers);
+        MenuAndTotalNumberValidate.notInCharacter(menusAndTotalNumbers);
     }
 
-    private void validateOrderMenuAndTotalNumber(String orderMenuAndTotalNumber) {
-        OrderValidate.inBlank(orderMenuAndTotalNumber);
-        OrderValidate.menuBlank(orderMenuAndTotalNumber);
+    private void validateMenuAndTotalNumber(String menuAndTotalNumber) {
+        MenuAndTotalNumberValidate.inBlank(menuAndTotalNumber);
+        MenuAndTotalNumberValidate.menuBlank(menuAndTotalNumber);
     }
 
-    private void validateOrderMenu(String orderMenu) {
-        OrderValidate.inBlank(orderMenu);
-        OrderValidate.isNotInMenuList(orderMenu);
+    private void validateMenu(String menu) {
+        MenuAndTotalNumberValidate.inBlank(menu);
+        MenuAndTotalNumberValidate.isNotInMenuList(menu);
     }
 
     private void validateTotalNumber(String totalNumber) {
-        OrderValidate.inBlank(totalNumber);
-        OrderValidate.notNumber(totalNumber);
-        OrderValidate.notRangeNumber(Integer.parseInt(totalNumber));
+        MenuAndTotalNumberValidate.inBlank(totalNumber);
+        MenuAndTotalNumberValidate.notNumber(totalNumber);
+        MenuAndTotalNumberValidate.notRangeNumber(Integer.parseInt(totalNumber));
     }
 
 }

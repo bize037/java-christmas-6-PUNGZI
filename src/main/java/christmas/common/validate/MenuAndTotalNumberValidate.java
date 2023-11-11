@@ -1,10 +1,10 @@
 package christmas.common.validate;
 
-import christmas.common.constants.Menu;
+import christmas.common.constants.MenuAndPrice;
 import christmas.common.constants.Symbol;
 import java.util.List;
 
-public class OrderValidate {
+public class MenuAndTotalNumberValidate {
     private static final String ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     public static final String DIGITS_PATTERN = "\\d+";
     private static final int RANGE_MIN_NUMBER = 1;
@@ -64,8 +64,8 @@ public class OrderValidate {
     }
 
     public static boolean isNotInMenuList(String input) {
-        for (Menu menu : Menu.getAllMenus()) {
-            if (input.equals(menu.getMenu())) {
+        for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
+            if (input.equals(menuAndPrice.getMenu())) {
                 return true;
             }
         }
