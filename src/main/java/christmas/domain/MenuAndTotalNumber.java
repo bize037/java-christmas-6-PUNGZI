@@ -17,11 +17,15 @@ public class MenuAndTotalNumber {
     private static final int SECOND_INDEX_NUMBER = 1;
 
     public MenuAndTotalNumber(String menusAndTotalNumbers) {
+        initVariables();
+        inputMenusAndTotalNumbers(menusAndTotalNumbers);
+        this.MenusAndTotalNumbers = temporaryMenusAndTotalNumbers;
+    }
+
+    private void initVariables() {
         temporaryMenusAndTotalNumbers.clear();
         menus.clear();
         prices = 0;
-        inputMenusAndTotalNumbers(menusAndTotalNumbers);
-        this.MenusAndTotalNumbers = temporaryMenusAndTotalNumbers;
     }
 
     private HashMap<String, Integer> inputMenusAndTotalNumbers(String menusAndTotalNumbers) {
