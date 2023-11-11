@@ -10,6 +10,7 @@ public class MenuAndTotalNumberValidate {
     private static final int RANGE_MIN_NUMBER = 1;
     private static final int RANGE_MAX_NUMBER = 20;
     private static final int ADD_COUNT = 1;
+    private static final int ZERO = 0;
 
     public static void inBlank(String input) {
         if (input.isBlank()) {
@@ -44,8 +45,8 @@ public class MenuAndTotalNumberValidate {
     }
 
     private static int commaCount(String input) {
-        int count = 0;
-        for (int i = 0; i < input.length(); i++) {
+        int count = ZERO;
+        for (int i = ZERO; i < input.length(); i++) {
             if (input.charAt(i) == Symbol.COMMA.getCharSymbol()) {
                 count++;
             }
@@ -54,8 +55,8 @@ public class MenuAndTotalNumberValidate {
     }
 
     private static int hyphenCount(String input) {
-        int count = 0;
-        for (int i = 0; i < input.length(); i++) {
+        int count = ZERO;
+        for (int i = ZERO; i < input.length(); i++) {
             if (input.charAt(i) == Symbol.HYPHEN.getCharSymbol()) {
                 count++;
             }
@@ -79,7 +80,7 @@ public class MenuAndTotalNumberValidate {
     }
 
     public static void overPriceSum(int input) {
-        if(input > 20) {
+        if(input > RANGE_MAX_NUMBER) {
             throw new IllegalArgumentException(ERROR_MESSAGE);
         }
     }
