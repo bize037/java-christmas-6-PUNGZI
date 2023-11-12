@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MenuAndTotalNumber {
     private final HashMap<String, Integer> menusAndTotalNumbers;
-    private int menusAllPay;
+    private int menusTotalPay;
 
     private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();;
     private List<String> menus = new ArrayList<>();
@@ -38,24 +38,24 @@ public class MenuAndTotalNumber {
         System.out.println();
     }
 
-    public int beforeSaleAllPay() {
+    public int beforeSaleTotalPay() {
         for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
-            addBeforeSaleAllPay(order.getKey(), order.getValue());
+            addBeforeSaleTotalPay(order.getKey(), order.getValue());
         }
-        return menusAllPay;
+        return menusTotalPay;
     }
 
-    private void addBeforeSaleAllPay(String menu, int menuConut) {
+    private void addBeforeSaleTotalPay(String menu, int menuConut) {
         for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
             if (menu.equals(menuAndPrice.getMenu())) {
-                int menuAllPay = menuAndPrice.getPrice() * menuConut;
-                menusAllPay += menuAllPay;
+                int menuTotalPay = menuAndPrice.getPrice() * menuConut;
+                menusTotalPay += menuTotalPay;
             }
         }
     }
 
     public String presentMenu() {
-        if (menusAllPay >= PRESENT_MENU_BASE_PAY) {
+        if (menusTotalPay >= PRESENT_MENU_BASE_PAY) {
             return MenuAndPrice.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
         }
         return NOTHING;
@@ -78,7 +78,7 @@ public class MenuAndTotalNumber {
         return tempMenusAndTotalNumbers;
     }
 
-    private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) {
+    private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) { // 자르기
         validateMenuAndTotalNumber(menuAndTotalNumber);
         List<String> splitMenuAndTotalNumber = Utils.splitInList(menuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
         validateMenu(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
@@ -88,6 +88,7 @@ public class MenuAndTotalNumber {
         tempMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
     }
 
+    // 예외 처리 메서드
     private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
         MenuAndTotalNumberValidate.inBlank(menusAndTotalNumbers);
         MenuAndTotalNumberValidate.notInCharacter(menusAndTotalNumbers);
