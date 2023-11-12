@@ -19,4 +19,9 @@ public class OutputView {
         System.out.println(OutputMessage.BEFORE_SALE_PAY.getMessage());
         System.out.println(decFormat.format(beforeSaleAllPay) + "원" + LINE_SEPARATOR);
     }
+
+    public void outputPresentMenu(String presentMenu) {
+        System.out.println(OutputMessage.PRESENT_MENU.getMessage());
+        System.out.println(presentMenu);
+    }
 }
