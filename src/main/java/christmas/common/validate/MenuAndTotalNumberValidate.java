@@ -2,6 +2,8 @@ package christmas.common.validate;
 
 import christmas.common.constants.MenuAndPrice;
 import christmas.common.constants.Symbol;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MenuAndTotalNumberValidate {
@@ -83,5 +85,22 @@ public class MenuAndTotalNumberValidate {
         if(input > RANGE_MAX_NUMBER) {
             throw new IllegalArgumentException(ERROR_MESSAGE);
         }
+    }
+
+    public static void onlyDrink(List<String> menus) {
+        menus.removeAll(onlyDrinks());
+        if (menus.isEmpty()) {
+            throw new IllegalArgumentException(ERROR_MESSAGE);
+        }
+    }
+
+    private static List<String> onlyDrinks() {
+        List<String> drinkMenus = new ArrayList<>();
+        for (MenuAndPrice orderMenu : MenuAndPrice.values()) {
+            if (orderMenu.name().startsWith("DRINK")) {
+                drinkMenus.add(orderMenu.getMenu());
+            }
+        }
+        return drinkMenus;
     }
 }

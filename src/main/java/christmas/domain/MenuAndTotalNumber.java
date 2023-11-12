@@ -70,7 +70,7 @@ public class MenuAndTotalNumber {
         splitMenusAndTotalNumbers.forEach(MenuAndTotalNumber -> {
             putInMapMenusAndTotalNumbers(MenuAndTotalNumber);
         });
-        MenuAndTotalNumberValidate.overlapMenu(menus);
+        validateMenus(menus);
         MenuAndTotalNumberValidate.overPriceSum(prices);
         return tempMenusAndTotalNumbers;
     }
@@ -88,6 +88,11 @@ public class MenuAndTotalNumber {
     private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
         MenuAndTotalNumberValidate.inBlank(menusAndTotalNumbers);
         MenuAndTotalNumberValidate.notInCharacter(menusAndTotalNumbers);
+    }
+
+    private void validateMenus(List<String> menu) {
+        MenuAndTotalNumberValidate.overlapMenu(menu);
+        MenuAndTotalNumberValidate.onlyDrink(menu);
     }
 
     private void validateMenuAndTotalNumber(String menuAndTotalNumber) {
