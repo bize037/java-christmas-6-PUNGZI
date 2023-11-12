@@ -19,8 +19,11 @@ public class MenuAndTotalNumber {
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
     private static final int PRESENT_MENU_BASE_PAY = 120_000;
-    private static final String PRESENT_MENU_MESSAGE = " 증정";
+    private static final int PRESENT_MENU_COUNT = 1;
     private static final String NOTHING = "없음";
+    private static final String SPACE = " ";
+    private static final String COUNT_UNIT = "개";
+
 
     public MenuAndTotalNumber(String MenusAndTotalNumbersTemp) {
         initVariables();
@@ -30,7 +33,7 @@ public class MenuAndTotalNumber {
 
     public void outputOrderMenuAndTotalNumber() {
         for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
-            System.out.println(order.getKey() + " " + order.getValue() + "개");
+            System.out.println(order.getKey() + SPACE + order.getValue() + COUNT_UNIT);
         }
         System.out.println();
     }
@@ -53,7 +56,7 @@ public class MenuAndTotalNumber {
 
     public String presentMenu() {
         if (menusAllPay >= PRESENT_MENU_BASE_PAY) {
-            return MenuAndPrice.DRINK_3.getMenu() + PRESENT_MENU_MESSAGE;
+            return MenuAndPrice.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
         }
         return NOTHING;
     }
