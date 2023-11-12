@@ -10,37 +10,49 @@ import java.util.List;
 
 public class MenuAndTotalNumber {
     private final HashMap<String, Integer> menusAndTotalNumbers;
-    private final int menusAllPay;
+    private int menusAllPay;
 
     private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();;
     private List<String> menus = new ArrayList<>();
     private int prices = 0;
+
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
     private static final int PRESENT_MENU_BASE_PAY = 120_000;
-    private static final String PRESENT_MENU = " 증정";
+    private static final String PRESENT_MENU_MESSAGE = " 증정";
     private static final String NOTHING = "없음";
 
     public MenuAndTotalNumber(String MenusAndTotalNumbersTemp) {
         initVariables();
         inputMenusAndTotalNumbers(MenusAndTotalNumbersTemp);
         this.menusAndTotalNumbers = tempMenusAndTotalNumbers;
-        this.menusAllPay = menusAndTotalNumbers.values().stream().mapToInt(Integer::intValue).sum();
     }
 
     public void outputOrderMenuAndTotalNumber() {
         for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
             System.out.println(order.getKey() + " " + order.getValue() + "개");
         }
+        System.out.println();
     }
 
     public int beforeSaleAllPay() {
+        for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
+            addBeforeSaleAllPay(order.getKey());
+        }
         return menusAllPay;
+    }
+
+    private void addBeforeSaleAllPay(String menu) {
+        for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
+            if (menu.equals(menuAndPrice.getMenu())) {
+                menusAllPay += menuAndPrice.getPrice();
+            }
+        }
     }
 
     public String presentMenu() {
         if (menusAllPay >= PRESENT_MENU_BASE_PAY) {
-            return MenuAndPrice.DRINK_3.getMenu() + PRESENT_MENU;
+            return MenuAndPrice.DRINK_3.getMenu() + PRESENT_MENU_MESSAGE;
         }
         return NOTHING;
     }
