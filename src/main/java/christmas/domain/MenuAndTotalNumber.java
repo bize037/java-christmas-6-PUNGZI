@@ -37,15 +37,16 @@ public class MenuAndTotalNumber {
 
     public int beforeSaleAllPay() {
         for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
-            addBeforeSaleAllPay(order.getKey());
+            addBeforeSaleAllPay(order.getKey(), order.getValue());
         }
         return menusAllPay;
     }
 
-    private void addBeforeSaleAllPay(String menu) {
+    private void addBeforeSaleAllPay(String menu, int menuConut) {
         for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
             if (menu.equals(menuAndPrice.getMenu())) {
-                menusAllPay += menuAndPrice.getPrice();
+                int menuAllPay = menuAndPrice.getPrice() * menuConut;
+                menusAllPay += menuAllPay;
             }
         }
     }
