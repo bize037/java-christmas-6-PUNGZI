@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.common.constants.MenuAndPrice;
 import christmas.common.constants.Symbol;
 import christmas.common.utils.Utils;
 import christmas.common.validate.MenuAndTotalNumberValidate;
@@ -8,22 +9,44 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MenuAndTotalNumber {
-    private final HashMap<String, Integer> MenusAndTotalNumbers;
+    private final HashMap<String, Integer> menusAndTotalNumbers;
+    private final int menusAllPay;
 
-    private HashMap<String, Integer> temporaryMenusAndTotalNumbers = new HashMap<String, Integer>();;
+    private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();;
     private List<String> menus = new ArrayList<>();
     private int prices = 0;
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
+    private static final int PRESENT_MENU_BASE_PAY = 120_000;
+    private static final String PRESENT_MENU = " 증정";
+    private static final String NOTHING = "없음";
 
-    public MenuAndTotalNumber(String menusAndTotalNumbers) {
+    public MenuAndTotalNumber(String MenusAndTotalNumbersTemp) {
         initVariables();
-        inputMenusAndTotalNumbers(menusAndTotalNumbers);
-        this.MenusAndTotalNumbers = temporaryMenusAndTotalNumbers;
+        inputMenusAndTotalNumbers(MenusAndTotalNumbersTemp);
+        this.menusAndTotalNumbers = tempMenusAndTotalNumbers;
+        this.menusAllPay = menusAndTotalNumbers.values().stream().mapToInt(Integer::intValue).sum();
+    }
+
+    public void outputOrderMenuAndTotalNumber() {
+        for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
+            System.out.println(order.getKey() + " " + order.getValue() + "개");
+        }
+    }
+
+    public int beforeSaleAllPay() {
+        return menusAllPay;
+    }
+
+    public String presentMenu() {
+        if (menusAllPay >= PRESENT_MENU_BASE_PAY) {
+            return MenuAndPrice.DRINK_3.getMenu() + PRESENT_MENU;
+        }
+        return NOTHING;
     }
 
     private void initVariables() {
-        temporaryMenusAndTotalNumbers.clear();
+        tempMenusAndTotalNumbers.clear();
         menus.clear();
         prices = 0;
     }
@@ -36,7 +59,7 @@ public class MenuAndTotalNumber {
         });
         MenuAndTotalNumberValidate.overlapMenu(menus);
         MenuAndTotalNumberValidate.overPriceSum(prices);
-        return temporaryMenusAndTotalNumbers;
+        return tempMenusAndTotalNumbers;
     }
 
     private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) {
@@ -46,7 +69,7 @@ public class MenuAndTotalNumber {
         validateTotalNumber(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
         menus.add(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
         prices += Integer.parseInt(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
-        temporaryMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
+        tempMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
     }
 
     private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
