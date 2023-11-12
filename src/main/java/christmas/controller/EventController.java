@@ -28,7 +28,7 @@ public class EventController {
         outputView.outputDatePreviewMessage(visitDate.monthAndDate());
         outputView.orderMenuAndTotalNumberMessage();
         menuAndTotalNumber.outputOrderMenuAndTotalNumber();
-        outputView.outputBeforeSaleAllPay(menuAndTotalNumber.beforeSaleAllPay());
+        outputView.outputBeforeSaleAllPay(menuAndTotalNumber.beforeSaleTotalPay());
         outputView.outputPresentMenu(menuAndTotalNumber.presentMenu());
     }
 
