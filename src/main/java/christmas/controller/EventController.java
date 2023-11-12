@@ -29,7 +29,7 @@ public class EventController {
         outputView.orderMenuAndTotalNumberMessage();
         menuAndTotalNumber.outputOrderMenuAndTotalNumber();
         outputView.outputBeforeSaleAllPay(menuAndTotalNumber.beforeSaleAllPay());
-
+        outputView.outputPresentMenu(menuAndTotalNumber.presentMenu());
     }
 
     private void generateVisitDate() {
