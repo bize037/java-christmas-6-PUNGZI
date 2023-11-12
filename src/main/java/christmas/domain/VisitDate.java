@@ -4,7 +4,9 @@ import christmas.common.validate.DateValidate;
 
 public class VisitDate {
     private final int date;
-    private static final String MONTH_AND_DATE = "12월 %일";
+
+    private static final String MONTH = "12월 ";
+    private static final String DATE = "일";
 
     public VisitDate(String date) {
         validateVisitDate(date);
@@ -18,6 +20,6 @@ public class VisitDate {
     }
 
     public String monthAndDate() {
-        return String.format(MONTH_AND_DATE, date);
+        return MONTH + date + DATE;
     }
 }

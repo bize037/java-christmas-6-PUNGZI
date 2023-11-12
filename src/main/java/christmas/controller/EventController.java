@@ -3,7 +3,6 @@ package christmas.controller;
 import christmas.domain.MenuAndTotalNumber;
 import christmas.domain.VisitDate;
 import christmas.view.InputView;
-import java.util.HashMap;
 
 public class EventController {
     InputView inputView = new InputView();
@@ -13,6 +12,7 @@ public class EventController {
 
     public void startEvent() {
         inputEvent();
+        outputEvent();
     }
 
     private void inputEvent() {
@@ -20,6 +20,11 @@ public class EventController {
         generateVisitDate();
         inputView.menuAndTotalNumberMessage();
         generateMenuAndTotalNumber();
+    }
+
+    private void outputEvent() {
+        System.out.println(visitDate.monthAndDate());
+        menuAndTotalNumber.outputOrderMenuAndTotalNumber();
     }
 
     private void generateVisitDate() {
