@@ -14,7 +14,7 @@ public class MenuAndTotalNumber {
 
     private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();;
     private List<String> menus = new ArrayList<>();
-    private int prices = 0;
+    private int price = 0;
 
     private static final int FIRST_INDEX_NUMBER = 0;
     private static final int SECOND_INDEX_NUMBER = 1;
@@ -64,39 +64,53 @@ public class MenuAndTotalNumber {
     private void initVariables() {
         tempMenusAndTotalNumbers.clear();
         menus.clear();
-        prices = 0;
+        price = 0;
     }
 
     private HashMap<String, Integer> inputMenusAndTotalNumbers(String menusAndTotalNumbers) {
-        validateMenusAndTotalNumbers(menusAndTotalNumbers);
-        List<String> splitMenusAndTotalNumbers = Utils.splitInList(menusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
-        splitMenusAndTotalNumbers.forEach(MenuAndTotalNumber -> {
-            putInMapMenusAndTotalNumbers(MenuAndTotalNumber);
-        });
-        validateMenus(menus);
-        MenuAndTotalNumberValidate.overPriceSum(prices);
+        List<String> splitMenusAndTotalNumbers = putInListMenusAndTotalNumbers(menusAndTotalNumbers);
+        splitMenusAndTotalNumbers.forEach(this::putInMapMenusAndTotalNumbers);
+        validateMenusAndPrices(menus);
         return tempMenusAndTotalNumbers;
     }
 
+    private List<String> putInListMenusAndTotalNumbers(String menusAndTotalNumbers) {
+        validateMenusAndTotalNumbers(menusAndTotalNumbers);
+        return Utils.splitInList(menusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
+    }
+
     private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) { // 자르기
-        validateMenuAndTotalNumber(menuAndTotalNumber);
-        List<String> splitMenuAndTotalNumber = Utils.splitInList(menuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
-        validateMenu(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
-        validateTotalNumber(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
-        menus.add(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER));
-        prices += Integer.parseInt(splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
+        List<String> splitMenuAndTotalNumber = putInListMenuAndTotalNumber(menuAndTotalNumber);
+        addAndValidateSplitMenuAndTotalNumber(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
         tempMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
     }
 
+    private List<String> putInListMenuAndTotalNumber(String menuAndTotalNumber) {
+        validateMenuAndTotalNumber(menuAndTotalNumber);
+        return Utils.splitInList(menuAndTotalNumber, Symbol.HYPHEN.getStringSymbol());
+    }
+
+    private void addAndValidateSplitMenuAndTotalNumber(String menu, String totalNumber) {
+        validateSplitMenuAndTotalNumber(menu, totalNumber);
+        menus.add(menu);
+        price += Integer.parseInt(totalNumber);
+    }
+
     // 예외 처리 메서드
+    private void validateMenusAndPrices(List<String> menu) {
+        MenuAndTotalNumberValidate.overlapMenu(menu);
+        MenuAndTotalNumberValidate.onlyDrink(menu);
+        MenuAndTotalNumberValidate.overPriceSum(price);
+    }
+
     private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
         MenuAndTotalNumberValidate.inBlank(menusAndTotalNumbers);
         MenuAndTotalNumberValidate.notInCharacter(menusAndTotalNumbers);
     }
 
-    private void validateMenus(List<String> menu) {
-        MenuAndTotalNumberValidate.overlapMenu(menu);
-        MenuAndTotalNumberValidate.onlyDrink(menu);
+    private void validateSplitMenuAndTotalNumber(String menu, String totalNumber) {
+        validateMenu(menu);
+        validateTotalNumber(totalNumber);
     }
 
     private void validateMenuAndTotalNumber(String menuAndTotalNumber) {
