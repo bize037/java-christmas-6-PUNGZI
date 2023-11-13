@@ -19,6 +19,10 @@ public class VisitDate {
         DateValidate.notRangeNumber(Integer.parseInt(visitDate));
     }
 
+    public int getDate() {
+        return date;
+    }
+
     public String monthAndDate() {
         return MONTH + date + DATE;
     }
