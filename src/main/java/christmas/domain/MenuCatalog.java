@@ -52,6 +52,20 @@ public class MenuCatalog {
         return menusTotalPay;
     }
 
+    public String presentMenu() {
+        if (menusTotalPay >= PRESENT_MENU_BASE_PAY) {
+            return Menu.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
+        }
+        return NOTHING;
+    }
+
+    public String presentMenuMoreNeedPay() {
+        if (menusTotalPay >= PRESENT_MENU_BASE_PAY - Menu.DRINK_3.getPrice() && menusTotalPay < PRESENT_MENU_BASE_PAY) {
+            return Utils.decFormat(PRESENT_MENU_BASE_PAY - menusTotalPay) + "원";
+        }
+        return "";
+    }
+
     private void addBeforeSaleTotalPay(String menu, int menuConut) {
         for (Menu menuAndPrice : Menu.getAllMenus()) {
             if (menu.equals(menuAndPrice.getMenu())) {
@@ -59,13 +73,6 @@ public class MenuCatalog {
                 menusTotalPay += menuTotalPay;
             }
         }
-    }
-
-    public String presentMenu() {
-        if (menusTotalPay >= PRESENT_MENU_BASE_PAY) {
-            return Menu.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
-        }
-        return NOTHING;
     }
 
     private void initVariables() {
