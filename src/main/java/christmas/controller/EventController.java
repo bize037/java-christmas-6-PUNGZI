@@ -32,7 +32,7 @@ public class EventController {
         outputView.outputDatePreviewMessage(visitDate.monthAndDate());
         outputView.orderMenuAndTotalNumberMessage();
         outputMenuAndTotalNumber();
-
+        outputView.outputPresentMenu(menuAndTotalNumber.presentMenu());
         generateBenefit(visitDate.getDate(), menuAndTotalNumber.getMenusAndTotalNumbers(), menuAndTotalNumber.beforeSaleTotalPay());
     }
 
@@ -57,7 +57,6 @@ public class EventController {
     private void outputMenuAndTotalNumber() {
         menuAndTotalNumber.outputOrderMenuAndTotalNumber();
         outputView.outputBeforeSaleAllPay(menuAndTotalNumber.beforeSaleTotalPay());
-        outputView.outputPresentMenu(menuAndTotalNumber.presentMenu());
     }
 
     private void generateBenefit(int date, HashMap<String, Integer> orderMenuAndTotalNumber, int beforeSaleTotalPay) {
