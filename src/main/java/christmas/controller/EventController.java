@@ -1,8 +1,8 @@
 package christmas.controller;
 
-import christmas.common.constants.OutputMessage;
+import christmas.domain.Badge;
 import christmas.domain.Benefit;
-import christmas.domain.MenuAndTotalNumber;
+import christmas.domain.MenuCatalog;
 import christmas.domain.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -13,7 +13,7 @@ public class EventController {
     OutputView outputView = new OutputView();
 
     private VisitDate visitDate;
-    private MenuAndTotalNumber menuAndTotalNumber;
+    private MenuCatalog menuCatalog;
     private Benefit benefit;
 
     public void startEvent() {
@@ -29,11 +29,8 @@ public class EventController {
     }
 
     private void outputEvent() {
-        outputView.outputDatePreviewMessage(visitDate.monthAndDate());
-        outputView.orderMenuAndTotalNumberMessage();
-        outputMenuAndTotalNumber();
-        outputView.outputPresentMenu(menuAndTotalNumber.presentMenu());
-        generateBenefit(visitDate.getDate(), menuAndTotalNumber.getMenusAndTotalNumbers(), menuAndTotalNumber.beforeSaleTotalPay());
+        outputAllBenefitBefore();
+        outputAllBenefitAfter();
     }
 
     private void generateVisitDate() {
@@ -47,26 +44,55 @@ public class EventController {
 
     private void generateMenuAndTotalNumber() {
         try {
-            menuAndTotalNumber = new MenuAndTotalNumber(inputView.inputConsole());
+            menuCatalog = new MenuCatalog(inputView.inputConsole());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             generateMenuAndTotalNumber();
         }
     }
 
+    private void outputAllBenefitBefore() {
+        outputView.outputDatePreviewMessage(visitDate.monthAndDate());
+        outputView.orderMenuAndTotalNumberMessage();
+        outputMenuAndTotalNumber();
+        outputView.outputPresentMenu(menuCatalog.presentMenu());
+    }
+
+    private void outputAllBenefitAfter() {
+        generateBenefit(visitDate.getDate(), menuCatalog.getMenusAndTotalNumbers(), menuCatalog.getMenusTotalPay());
+        outputAllBenefitPay(benefit.allBenefitPay());
+        outputAfterSalePay(benefit.afterSalePay());
+        outputEventBadge();
+    }
+
     private void outputMenuAndTotalNumber() {
-        menuAndTotalNumber.outputOrderMenuAndTotalNumber();
-        outputView.outputBeforeSaleAllPay(menuAndTotalNumber.beforeSaleTotalPay());
+        menuCatalog.outputOrderMenuAndTotalNumber();
+        outputView.outputBeforeSaleAllPay(menuCatalog.beforeSaleTotalPay());
     }
 
     private void generateBenefit(int date, HashMap<String, Integer> orderMenuAndTotalNumber, int beforeSaleTotalPay) {
         benefit = new Benefit(date, orderMenuAndTotalNumber, beforeSaleTotalPay);
-        String totalBenefitPrice = benefit.christmasSale() + benefit.dayOfWeekSale() + benefit.specialSale() + benefit.presentEvent();
-        outputBenefit(totalBenefitPrice);
+        String benefitList = benefit.christmasSale() + benefit.dayOfWeekSale() + benefit.specialSale() + benefit.presentEvent();
+        outputBenefit(benefitList);
     }
 
-    private void outputBenefit(String totalBenefitPrice) {
-        System.out.println(OutputMessage.BENEFIT_DETAILS.getMessage());
-        System.out.println(totalBenefitPrice);
+    private void outputBenefit(String benefitList) {
+        outputView.benefitDetailsMessage(benefit.getTotalBenefitPrice());
+        System.out.println(benefitList);
+    }
+
+    private void outputAllBenefitPay(String allBenefitPay) {
+        outputView.allBenefitPayMessage();
+        System.out.println(allBenefitPay);
+    }
+
+    private void outputAfterSalePay(String afterSalePay) {
+        outputView.afterSalePayMessage();
+        System.out.println(afterSalePay);
+    }
+
+    private void outputEventBadge() {
+        outputView.eventBadgeMessage();
+        System.out.println(Badge.getBadge(benefit.getTotalBenefitPrice()));
     }
 }
