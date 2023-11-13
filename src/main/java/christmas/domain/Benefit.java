@@ -1,7 +1,8 @@
 package christmas.domain;
 
 import christmas.common.constants.DayOfWeek;
-import christmas.common.constants.MenuAndPrice;
+import christmas.common.constants.Menu;
+import christmas.common.utils.Utils;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,6 @@ public class Benefit {
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
-    DecimalFormat decFormat = new DecimalFormat("###,###");
     private int totalBenefitPrice = 0;
 
     public Benefit(int date, HashMap<String, Integer> menusAndTotalNumbers, int beforeSaleTotalPay) {
@@ -24,15 +24,18 @@ public class Benefit {
         this.dayOfWeek = dayOfWeek(date);
     }
 
-    // 크리스마스 할인
-    public String christmasSale() {
-        if (date > 25 || checkChristmasSale() == 0) {
-            return "";
-        }
-        return "크리스마스 디데이 할인: -" + decFormat.format(checkChristmasSale()) + "원" + LINE_SEPARATOR;
+    public int getTotalBenefitPrice(){
+        return totalBenefitPrice;
     }
 
-    // 평일, 주말 할인
+    public String christmasSale() {
+        int christmasSale = checkChristmasSale();
+        if (date > 25 || christmasSale == 0) {
+            return "";
+        }
+        return "크리스마스 디데이 할인: " + Utils.minusDecformat(christmasSale) + "원" + LINE_SEPARATOR;
+    }
+
     public String dayOfWeekSale() {
         if (dayOfWeek.equals(DayOfWeek.FRIDAY.getWeek()) || dayOfWeek.equals(DayOfWeek.SATURDAY.getWeek())) {
             return weekendSale();
@@ -40,29 +43,42 @@ public class Benefit {
         return weekdaySale();
     }
 
-    // 특별 할인
     public String specialSale() {
         if (dayOfWeek.equals("일") || date == 25) {
-            totalBenefitPrice = 1000;
-            return "특별 할인: -" + 1000 + "원" + LINE_SEPARATOR;
+            totalBenefitPrice += 1_000;
+            return "특별 할인: " + Utils.minusDecformat(1_000) + "원" + LINE_SEPARATOR;
         }
         return "";
     }
 
-    // 증정 할인
     public String presentEvent() {
         if (beforeSaleTotalPay >= 120_000) {
-            return "증정 이벤트: -" + MenuAndPrice.DRINK_3.getPrice() + "원" + LINE_SEPARATOR;
+            totalBenefitPrice += Menu.DRINK_3.getPrice();
+            return "증정 이벤트: " + Utils.minusDecformat(Menu.DRINK_3.getPrice()) + "원" + LINE_SEPARATOR;
         }
         return "";
+    }
+
+    public String allBenefitPay() {
+        return Utils.decFormat(totalBenefitPrice) + "원" + LINE_SEPARATOR;
+    }
+
+    public String afterSalePay() {
+        int afterSalePay = beforeSaleTotalPay - totalBenefitPrice;
+        return Utils.decFormat(afterSalePay) + "원" + LINE_SEPARATOR;
     }
 
     // 크리스마스 할인 관련 메서드
     private int checkChristmasSale() {
         if (date >= 1 && date <= 25) {
-            return 1000 + (date - 1) * 100;
+            totalBenefitPrice += discountByDate();
+            return discountByDate();
         }
         return 0;
+    }
+
+    private int discountByDate() {
+        return 1000 + (date - 1) * 100;
     }
 
     // 평일, 주말 할인 관련 메서드
@@ -72,7 +88,7 @@ public class Benefit {
             return "";
         }
         totalBenefitPrice += price;
-        return "평일 할인: -" + decFormat.format(price) + "원" + LINE_SEPARATOR;
+        return "평일 할인: " + Utils.minusDecformat(price) + "원" + LINE_SEPARATOR;
     }
 
     private String weekendSale() {
@@ -81,7 +97,7 @@ public class Benefit {
             return "";
         }
         totalBenefitPrice += price;
-        return "주말 할인: -" + decFormat.format(price) + "원" + LINE_SEPARATOR;
+        return "주말 할인: " + Utils.minusDecformat(price) + "원" + LINE_SEPARATOR;
     }
 
     private int checkWeekendSale() {
@@ -101,7 +117,7 @@ public class Benefit {
     }
 
     private int addWeekdaySale(HashMap.Entry<String, Integer> order, int price) {
-        for (MenuAndPrice menuAndPrice : MenuAndPrice.getDesserts()) {
+        for (Menu menuAndPrice : Menu.getDesserts()) {
             if (menuAndPrice.getMenu().equals(order.getKey())) {
                 price += (2023 * order.getValue());
             }
@@ -110,7 +126,7 @@ public class Benefit {
     }
 
     private int addWeekendSale(HashMap.Entry<String, Integer> order, int price) {
-        for (MenuAndPrice menuAndPrice : MenuAndPrice.getMains()) {
+        for (Menu menuAndPrice : Menu.getMains()) {
             if (menuAndPrice.getMenu().equals(order.getKey())) {
                 price += 2023;
             }
@@ -118,6 +134,7 @@ public class Benefit {
         return price;
     }
 
+    // 요일 계산
     private String dayOfWeek(int date) {
         List<String> dayOfWeekNames = DayOfWeek.getAllDayOfWeek().stream().map(DayOfWeek::getWeek).toList();
         return dayOfWeekNames.get(date % 7 - 1);
