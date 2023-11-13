@@ -56,6 +56,7 @@ public class EventController {
         outputView.orderMenuAndTotalNumberMessage();
         outputMenuAndTotalNumber();
         outputView.outputPresentMenu(menuCatalog.presentMenu());
+        outputView.outputPresentMenuMoreNeedPay(menuCatalog.presentMenuMoreNeedPay());
     }
 
     private void outputAllBenefitAfter() {
