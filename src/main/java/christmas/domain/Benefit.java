@@ -26,7 +26,7 @@ public class Benefit {
 
     // 크리스마스 할인
     public String christmasSale() {
-        if (checkChristmasSale() == 0) {
+        if (date > 25 || checkChristmasSale() == 0) {
             return "";
         }
         return "크리스마스 디데이 할인: -" + decFormat.format(checkChristmasSale()) + "원" + LINE_SEPARATOR;
@@ -38,6 +38,23 @@ public class Benefit {
             return weekendSale();
         }
         return weekdaySale();
+    }
+
+    // 특별 할인
+    public String specialSale() {
+        if (dayOfWeek.equals("일") || date == 25) {
+            totalBenefitPrice = 1000;
+            return "특별 할인: -" + 1000 + "원" + LINE_SEPARATOR;
+        }
+        return "";
+    }
+
+    // 증정 할인
+    public String presentEvent() {
+        if (beforeSaleTotalPay >= 120_000) {
+            return "증정 이벤트: -" + MenuAndPrice.DRINK_3.getPrice() + "원" + LINE_SEPARATOR;
+        }
+        return "";
     }
 
     // 크리스마스 할인 관련 메서드
@@ -86,7 +103,7 @@ public class Benefit {
     private int addWeekdaySale(HashMap.Entry<String, Integer> order, int price) {
         for (MenuAndPrice menuAndPrice : MenuAndPrice.getDesserts()) {
             if (menuAndPrice.getMenu().equals(order.getKey())) {
-                price += 2023;
+                price += (2023 * order.getValue());
             }
         }
         return price;
