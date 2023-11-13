@@ -27,6 +27,13 @@ public class OutputView {
 
     public void benefitDetailsMessage(int salePrice) {
         System.out.println(OutputMessage.BENEFIT_DETAILS.getMessage());
+        noSalePrice(salePrice);
+    }
+
+    private void noSalePrice(int salePrice) {
+        if (salePrice == 0) {
+            System.out.println("없음");
+        }
     }
 
     public void allBenefitPayMessage() {
