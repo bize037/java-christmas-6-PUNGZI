@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.common.constants.MenuAndPrice;
+import christmas.common.constants.Menu;
 import christmas.common.constants.Symbol;
 import christmas.common.utils.Utils;
 import christmas.common.validate.MenuAndTotalNumberValidate;
@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MenuAndTotalNumber {
+public class MenuCatalog {
     private final HashMap<String, Integer> menusAndTotalNumbers;
-    private int menusTotalPay;
 
-    private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();;
+    private HashMap<String, Integer> tempMenusAndTotalNumbers = new HashMap<String, Integer>();
     private List<String> menus = new ArrayList<>();
+    private int menusTotalPay;
     private int price = 0;
 
     private static final int FIRST_INDEX_NUMBER = 0;
@@ -24,11 +24,14 @@ public class MenuAndTotalNumber {
     private static final String SPACE = " ";
     private static final String COUNT_UNIT = "개";
 
-
-    public MenuAndTotalNumber(String MenusAndTotalNumbersTemp) {
+    public MenuCatalog(String MenusAndTotalNumbersTemp) {
         initVariables();
         inputMenusAndTotalNumbers(MenusAndTotalNumbersTemp);
         this.menusAndTotalNumbers = tempMenusAndTotalNumbers;
+    }
+
+    public HashMap<String, Integer> getMenusAndTotalNumbers() {
+        return menusAndTotalNumbers;
     }
 
     public void outputOrderMenuAndTotalNumber() {
@@ -36,6 +39,10 @@ public class MenuAndTotalNumber {
             System.out.println(order.getKey() + SPACE + order.getValue() + COUNT_UNIT);
         }
         System.out.println();
+    }
+
+    public int getMenusTotalPay() {
+        return menusTotalPay;
     }
 
     public int beforeSaleTotalPay() {
@@ -46,7 +53,7 @@ public class MenuAndTotalNumber {
     }
 
     private void addBeforeSaleTotalPay(String menu, int menuConut) {
-        for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
+        for (Menu menuAndPrice : Menu.getAllMenus()) {
             if (menu.equals(menuAndPrice.getMenu())) {
                 int menuTotalPay = menuAndPrice.getPrice() * menuConut;
                 menusTotalPay += menuTotalPay;
@@ -56,7 +63,7 @@ public class MenuAndTotalNumber {
 
     public String presentMenu() {
         if (menusTotalPay >= PRESENT_MENU_BASE_PAY) {
-            return MenuAndPrice.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
+            return Menu.DRINK_3.getMenu() + SPACE + PRESENT_MENU_COUNT + COUNT_UNIT;
         }
         return NOTHING;
     }
@@ -79,7 +86,7 @@ public class MenuAndTotalNumber {
         return Utils.splitInList(menusAndTotalNumbers, Symbol.COMMA.getStringSymbol());
     }
 
-    private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) { // 자르기
+    private void putInMapMenusAndTotalNumbers(String menuAndTotalNumber) {
         List<String> splitMenuAndTotalNumber = putInListMenuAndTotalNumber(menuAndTotalNumber);
         addAndValidateSplitMenuAndTotalNumber(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), splitMenuAndTotalNumber.get(SECOND_INDEX_NUMBER));
         tempMenusAndTotalNumbers.put(splitMenuAndTotalNumber.get(FIRST_INDEX_NUMBER), Integer.parseInt(splitMenuAndTotalNumber.get(1)));
