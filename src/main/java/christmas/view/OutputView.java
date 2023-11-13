@@ -22,6 +22,22 @@ public class OutputView {
 
     public void outputPresentMenu(String presentMenu) {
         System.out.println(OutputMessage.PRESENT_MENU.getMessage());
-        System.out.println(presentMenu);
+        System.out.println(presentMenu + LINE_SEPARATOR);
+    }
+
+    public void benefitDetailsMessage(int salePrice) {
+        System.out.println(OutputMessage.BENEFIT_DETAILS.getMessage());
+    }
+
+    public void allBenefitPayMessage() {
+        System.out.println(OutputMessage.ALL_BENEFIT_PAY.getMessage());
+    }
+
+    public void afterSalePayMessage() {
+        System.out.println(OutputMessage.AFTER_SALE_PAY.getMessage());
+    }
+
+    public void eventBadgeMessage() {
+        System.out.println(OutputMessage.EVENT_BEDGE.getMessage());
     }
 }
