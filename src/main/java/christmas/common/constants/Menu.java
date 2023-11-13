@@ -2,8 +2,9 @@ package christmas.common.constants;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public enum MenuAndPrice {
+public enum Menu {
     APPETIZER_1("양송이수프", 6_000),
     APPETIZER_2("타파스", 5_500),
     APPETIZER_3("시저샐러드", 8_000),
@@ -23,7 +24,7 @@ public enum MenuAndPrice {
     private final String menu;
     private final int price;
 
-    MenuAndPrice(String menu, int price) {
+    Menu(String menu, int price) {
         this.menu = menu;
         this.price = price;
     }
@@ -36,7 +37,19 @@ public enum MenuAndPrice {
         return price;
     }
 
-    public static List<MenuAndPrice> getAllMenus() {
-        return Arrays.asList(MenuAndPrice.values());
+    public static List<Menu> getAllMenus() {
+        return Arrays.asList(Menu.values());
+    }
+
+    public static List<Menu> getDesserts() {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.name().startsWith("DESSERT"))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Menu> getMains() {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.name().startsWith("MAIN"))
+                .collect(Collectors.toList());
     }
 }
