@@ -5,7 +5,7 @@ public enum OutputMessage {
     ORDER_MENU_AND_TOTAL("<주문 메뉴>"),
     BEFORE_SALE_PAY("<할인 전 총주문 금액>"),
     PRESENT_MENU("<증정 메뉴>"),
-    PRESENT_MENU_MORE_NEED_PAY(" 더 결제하면" + Menu.DRINK_3.getMenu() + "증정"),
+    PRESENT_MENU_MORE_NEED_PAY(" 더 결제하면 " + Menu.DRINK_3.getMenu() + " 증정!"),
     BENEFIT_DETAILS("<혜택 내역>"),
     ALL_BENEFIT_PAY("<총혜택 금액>"),
     BENEFIT_RATE("<예상 혜택률>"),
