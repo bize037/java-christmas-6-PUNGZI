@@ -1,11 +1,11 @@
 package christmas.view;
 
 import christmas.common.constants.OutputMessage;
+import christmas.common.utils.Utils;
 import java.text.DecimalFormat;
 
 public class OutputView {
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    DecimalFormat decFormat = new DecimalFormat("###,###");
 
     public void outputDatePreviewMessage(String date) {
         System.out.println(date + OutputMessage.DATE_PREVIEW.getMessage() + LINE_SEPARATOR);
@@ -17,12 +17,18 @@ public class OutputView {
 
     public void outputBeforeSaleAllPay(int beforeSaleAllPay) {
         System.out.println(OutputMessage.BEFORE_SALE_PAY.getMessage());
-        System.out.println(decFormat.format(beforeSaleAllPay) + "원" + LINE_SEPARATOR);
+        System.out.println(Utils.decFormat(beforeSaleAllPay) + "원" + LINE_SEPARATOR);
     }
 
     public void outputPresentMenu(String presentMenu) {
         System.out.println(OutputMessage.PRESENT_MENU.getMessage());
         System.out.println(presentMenu + LINE_SEPARATOR);
+    }
+
+    public void outputPresentMenuMoreNeedPay(String moreNeedPay) {
+        if (moreNeedPay != "") {
+            System.out.println(moreNeedPay + OutputMessage.PRESENT_MENU_MORE_NEED_PAY.getMessage() + LINE_SEPARATOR);
+        }
     }
 
     public void benefitDetailsMessage(int salePrice) {
