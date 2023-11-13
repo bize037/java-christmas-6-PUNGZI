@@ -3,7 +3,7 @@ package christmas.domain;
 import christmas.common.constants.Menu;
 import christmas.common.constants.Symbol;
 import christmas.common.utils.Utils;
-import christmas.common.validate.MenuAndTotalNumberValidate;
+import christmas.common.validate.MenuCatalogValidate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,14 +105,14 @@ public class MenuCatalog {
 
     // 예외 처리 메서드
     private void validateMenusAndPrices(List<String> menu) {
-        MenuAndTotalNumberValidate.overlapMenu(menu);
-        MenuAndTotalNumberValidate.onlyDrink(menu);
-        MenuAndTotalNumberValidate.overPriceSum(price);
+        MenuCatalogValidate.overlapMenu(menu);
+        MenuCatalogValidate.onlyDrink(menu);
+        MenuCatalogValidate.overPriceSum(price);
     }
 
     private void validateMenusAndTotalNumbers(String menusAndTotalNumbers) {
-        MenuAndTotalNumberValidate.inBlank(menusAndTotalNumbers);
-        MenuAndTotalNumberValidate.notInCharacter(menusAndTotalNumbers);
+        MenuCatalogValidate.inBlank(menusAndTotalNumbers);
+        MenuCatalogValidate.notInCharacter(menusAndTotalNumbers);
     }
 
     private void validateSplitMenuAndTotalNumber(String menu, String totalNumber) {
@@ -121,19 +121,19 @@ public class MenuCatalog {
     }
 
     private void validateMenuAndTotalNumber(String menuAndTotalNumber) {
-        MenuAndTotalNumberValidate.inBlank(menuAndTotalNumber);
-        MenuAndTotalNumberValidate.menuBlank(menuAndTotalNumber);
+        MenuCatalogValidate.inBlank(menuAndTotalNumber);
+        MenuCatalogValidate.menuBlank(menuAndTotalNumber);
     }
 
     private void validateMenu(String menu) {
-        MenuAndTotalNumberValidate.inBlank(menu);
-        MenuAndTotalNumberValidate.isNotInMenuList(menu);
+        MenuCatalogValidate.inBlank(menu);
+        MenuCatalogValidate.isNotInMenuList(menu);
     }
 
     private void validateTotalNumber(String totalNumber) {
-        MenuAndTotalNumberValidate.inBlank(totalNumber);
-        MenuAndTotalNumberValidate.notNumber(totalNumber);
-        MenuAndTotalNumberValidate.notRangeNumber(Integer.parseInt(totalNumber));
+        MenuCatalogValidate.inBlank(totalNumber);
+        MenuCatalogValidate.notNumber(totalNumber);
+        MenuCatalogValidate.notRangeNumber(Integer.parseInt(totalNumber));
     }
 
 }

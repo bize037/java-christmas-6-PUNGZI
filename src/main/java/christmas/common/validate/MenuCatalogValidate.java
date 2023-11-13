@@ -1,12 +1,11 @@
 package christmas.common.validate;
 
-import christmas.common.constants.MenuAndPrice;
+import christmas.common.constants.Menu;
 import christmas.common.constants.Symbol;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class MenuAndTotalNumberValidate {
+public class MenuCatalogValidate {
     private static final String ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     public static final String DIGITS_PATTERN = "\\d+";
     private static final int RANGE_MIN_NUMBER = 1;
@@ -67,8 +66,8 @@ public class MenuAndTotalNumberValidate {
     }
 
     public static boolean isNotInMenuList(String input) {
-        for (MenuAndPrice menuAndPrice : MenuAndPrice.getAllMenus()) {
-            if (input.equals(menuAndPrice.getMenu())) {
+        for (Menu menu : Menu.getAllMenus()) {
+            if (input.equals(menu.getMenu())) {
                 return true;
             }
         }
@@ -96,9 +95,9 @@ public class MenuAndTotalNumberValidate {
 
     private static List<String> onlyDrinks() {
         List<String> drinkMenus = new ArrayList<>();
-        for (MenuAndPrice orderMenu : MenuAndPrice.values()) {
-            if (orderMenu.name().startsWith("DRINK")) {
-                drinkMenus.add(orderMenu.getMenu());
+        for (Menu menu : Menu.values()) {
+            if (menu.name().startsWith("DRINK")) {
+                drinkMenus.add(menu.getMenu());
             }
         }
         return drinkMenus;
