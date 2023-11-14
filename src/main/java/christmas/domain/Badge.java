@@ -9,6 +9,7 @@ public enum Badge {
 
     private final String name;
     private final Predicate<Integer> totalPrice;
+    private static final String NOTHING = "없음";
 
     Badge(String name, Predicate<Integer> totalPrice) {
         this.name = name;
@@ -25,6 +26,6 @@ public enum Badge {
                 return badge.getName();
             }
         }
-        return "없음";
+        return NOTHING;
     }
 }
