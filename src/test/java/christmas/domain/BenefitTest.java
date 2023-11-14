@@ -38,6 +38,13 @@ public class BenefitTest {
         assertThat(benefit.printDayOfWeekSale()).contains(outputSentence);
     }
 
+    @DisplayName("증정 이벤트 정보를 정상적으로 출력하는가")
+    @ValueSource(strings = {"증정 이벤트: -25,000원"})
+    @ParameterizedTest
+    void presentEventTest(String outputSentence) {
+        assertThat(benefit.printPresentEvent()).contains(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.MAIN_3.getMenu(), 2);
