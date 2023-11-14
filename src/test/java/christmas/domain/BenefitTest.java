@@ -20,28 +20,28 @@ public class BenefitTest {
     @DisplayName("크리스마스 할인 정보를 정상적으로 출력하는가")
     @ValueSource(strings = {"크리스마스 디데이 할인: -3,300원"})
     @ParameterizedTest
-    void christmasSaleTest(String outputSentence) {
+    void printChristmasSaleTest(String outputSentence) {
         assertThat(benefit.printChristmasSale()).contains(outputSentence);
     }
 
     @DisplayName("특별 할인 정보를 정상적으로 출력하는가")
     @ValueSource(strings = {"특별 할인: -1,000원"})
     @ParameterizedTest
-    void specialSaleTest(String outputSentence) {
+    void printSpecialSaleTest(String outputSentence) {
         assertThat(benefit.printSpecialSale()).contains(outputSentence);
     }
 
     @DisplayName("요일별 할인 정보를 정상적으로 출력하는가")
     @ValueSource(strings = {"평일 할인: -2,023원"})
     @ParameterizedTest
-    void dayOfWeekSaleTest(String outputSentence) {
+    void printDayOfWeekSaleTest(String outputSentence) {
         assertThat(benefit.printDayOfWeekSale()).contains(outputSentence);
     }
 
     @DisplayName("증정 이벤트 정보를 정상적으로 출력하는가")
     @ValueSource(strings = {"증정 이벤트: -25,000원"})
     @ParameterizedTest
-    void presentEventTest(String outputSentence) {
+    void printPresentEventTest(String outputSentence) {
         assertThat(benefit.printPresentEvent()).contains(outputSentence);
     }
 
