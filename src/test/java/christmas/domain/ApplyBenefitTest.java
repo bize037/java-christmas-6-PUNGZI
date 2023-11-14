@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class BenefitTest {
+public class ApplyBenefitTest {
     private Benefit benefit;
 
     private static final int DATE = 24;
