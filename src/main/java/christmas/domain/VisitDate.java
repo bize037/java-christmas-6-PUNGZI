@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.common.validate.DateValidate;
+import christmas.common.validate.VisitDateValidate;
 
 public class VisitDate {
     private final int date;
@@ -11,9 +11,9 @@ public class VisitDate {
     }
 
     private void validateVisitDate(String visitDate) {
-        DateValidate.inBlank(visitDate);
-        DateValidate.notNumber(visitDate);
-        DateValidate.notRangeNumber(Integer.parseInt(visitDate));
+        VisitDateValidate.inBlank(visitDate);
+        VisitDateValidate.notNumber(visitDate);
+        VisitDateValidate.notRangeNumber(Integer.parseInt(visitDate));
     }
 
     public int getDate() {

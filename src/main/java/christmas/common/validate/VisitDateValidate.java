@@ -1,6 +1,6 @@
 package christmas.common.validate;
 
-public class DateValidate {
+public class VisitDateValidate {
     private static final String ERROR_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     public static final String DIGITS_PATTERN = "\\d+";
     private static final int RANGE_MIN_NUMBER = 1;
