@@ -45,11 +45,26 @@ public class BenefitTest {
         assertThat(benefit.printPresentEvent()).contains(outputSentence);
     }
 
+    @DisplayName("총혜택 금액을 정상적으로 출력하는가")
+    @ValueSource(strings = {"31,323원"})
+    @ParameterizedTest
+    void printAllBenefitTest(String outputSentence) {
+        addTotalBenefitPrice();
+        assertThat(benefit.printAllBenefitPay()).contains(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.MAIN_3.getMenu(), 2);
             put(Menu.DESSERT_1.getMenu(), 1);
             put(Menu.DRINK_2.getMenu(), 1);
         }};
+    }
+
+    private void addTotalBenefitPrice() {
+        benefit.printChristmasSale();
+        benefit.printSpecialSale();
+        benefit.printDayOfWeekSale();
+        benefit.printPresentEvent();
     }
 }
