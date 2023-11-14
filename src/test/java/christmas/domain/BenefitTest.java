@@ -12,9 +12,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class BenefitTest {
     private Benefit benefit;
 
+    private static final int DATE = 24;
+    private static final int BEFORE_SALE_TOTAL_PAY = 145_000;
+
     @BeforeEach
     void generateBenefit() {
-        benefit = new Benefit(24, menusAndTotalNumbers(), 145_000);
+        benefit = new Benefit(DATE, menusAndTotalNumbers(), BEFORE_SALE_TOTAL_PAY);
     }
 
     @DisplayName("크리스마스 할인 정보를 정상적으로 출력하는가")
