@@ -58,6 +58,14 @@ public class NotApplyBenefitTest {
         assertThat(benefit.printAllBenefitPay()).contains(outputSentence);
     }
 
+    @DisplayName("할인 후 예상 결제 금액을 정상적으로 출력하는가")
+    @ValueSource(strings = {"6,000원"})
+    @ParameterizedTest
+    void printAfterSalePayTest(String outputSentence) {
+        addTotalBenefitPrice();
+        assertThat(benefit.printAfterSalePay()).contains(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.APPETIZER_1.getMenu(), 1);
