@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.common.constants.Menu;
 import christmas.common.constants.Symbol;
+import christmas.common.constants.Unit;
 import christmas.common.utils.Utils;
 import christmas.common.validate.MenuCatalogValidate;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class MenuCatalog {
 
     public String presentMenuMoreNeedPay() {
         if (menusTotalPay >= PRESENT_MENU_BASE_PAY - Menu.DRINK_3.getPrice() && menusTotalPay < PRESENT_MENU_BASE_PAY) {
-            return Utils.decFormat(PRESENT_MENU_BASE_PAY - menusTotalPay) + "원";
+            return Utils.decFormat(PRESENT_MENU_BASE_PAY - menusTotalPay) + Unit.KOREA_MONEY.getUnit();
         }
         return "";
     }

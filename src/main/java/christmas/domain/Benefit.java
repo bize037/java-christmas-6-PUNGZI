@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.common.constants.DayOfWeek;
 import christmas.common.constants.Menu;
+import christmas.common.constants.Unit;
 import christmas.common.utils.Utils;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Benefit {
 
     private static final int DAY_OF_WEEK_SALE_PRICE = 2_023;
     private static final int SPECIAL_SALE_PRICE = 1_000;
+    private static final int SPECIAL_SALE_DAY = 25;
     private static final int CHRISTMAS_SALE_MIN_TIME = 1;
     private static final int CHRISTMAS_SALE_MAX_TIME = 25;
     private static final int CHRISTMAS_SALE_START_PRICE = 1_000;
@@ -28,7 +30,7 @@ public class Benefit {
     private static final String WEEKDAY_SALE = "평일 할인: ";
     private static final String WEEKEND_SALE = "주말 할인: ";
     private static final String PRESENT_EVENT = "증정 이벤트: ";
-    private static final String NOTHING_STRING = "";
+    private static final String NOT_SALE = "";
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
@@ -48,9 +50,9 @@ public class Benefit {
     public String printChristmasSale() {
         int christmasSale = checkChristmasSale();
         if (christmasSale == ZERO_PRICE) {
-            return NOTHING_STRING;
+            return NOT_SALE;
         }
-        return CHRISTMAS_SALE + Utils.minusDecformat(christmasSale) + "원" + LINE_SEPARATOR;
+        return CHRISTMAS_SALE + Utils.minusDecformat(christmasSale) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
     }
 
     public String printDayOfWeekSale() {
@@ -61,23 +63,23 @@ public class Benefit {
     }
 
     public String printSpecialSale() {
-        if (dayOfWeek.equals(DayOfWeek.SUNDAY.getWeek()) || date == 25) {
+        if (dayOfWeek.equals(DayOfWeek.SUNDAY.getWeek()) || date == SPECIAL_SALE_DAY) {
             totalBenefitPrice += SPECIAL_SALE_PRICE;
-            return SPECIAL_SALE + Utils.minusDecformat(SPECIAL_SALE_PRICE) + "원" + LINE_SEPARATOR;
+            return SPECIAL_SALE + Utils.minusDecformat(SPECIAL_SALE_PRICE) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
         }
-        return NOTHING_STRING;
+        return NOT_SALE;
     }
 
     public String printPresentEvent() {
         if (beforeSaleTotalPay >= PRESENT_EVENT_CRITERIA) {
             totalBenefitPrice += Menu.DRINK_3.getPrice();
-            return PRESENT_EVENT + Utils.minusDecformat(Menu.DRINK_3.getPrice()) + "원" + LINE_SEPARATOR;
+            return PRESENT_EVENT + Utils.minusDecformat(Menu.DRINK_3.getPrice()) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
         }
-        return NOTHING_STRING;
+        return NOT_SALE;
     }
 
     public String printAllBenefitPay() {
-        return Utils.decFormat(totalBenefitPrice) + "원" + LINE_SEPARATOR;
+        return Utils.decFormat(totalBenefitPrice) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
     }
 
     public String printAfterSalePay() {
@@ -102,19 +104,19 @@ public class Benefit {
     private String weekdaySale() {
         int price = checkWeekdaySale();
         if (price == ZERO_PRICE) {
-            return NOTHING_STRING;
+            return NOT_SALE;
         }
         totalBenefitPrice += price;
-        return WEEKDAY_SALE + Utils.minusDecformat(price) + "원" + LINE_SEPARATOR;
+        return WEEKDAY_SALE + Utils.minusDecformat(price) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
     }
 
     private String weekendSale() {
         int price = checkWeekendSale();
         if (price == ZERO_PRICE) {
-            return NOTHING_STRING;
+            return NOT_SALE;
         }
         totalBenefitPrice += price;
-        return WEEKEND_SALE + Utils.minusDecformat(price) + "원" + LINE_SEPARATOR;
+        return WEEKEND_SALE + Utils.minusDecformat(price) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
     }
 
     private int checkWeekendSale() {
