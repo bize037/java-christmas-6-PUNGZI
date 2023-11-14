@@ -43,6 +43,13 @@ public class NotApplyBenefitTest {
         assertThat(benefit.printDayOfWeekSale()).doesNotContain(outputSentence);
     }
 
+    @DisplayName("증정 이벤트 정보가 뜨지 않는가")
+    @ValueSource(strings = {"증정 이벤트"})
+    @ParameterizedTest
+    void printPresentEventTest(String outputSentence) {
+        assertThat(benefit.printPresentEvent()).doesNotContain(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.APPETIZER_1.getMenu(), 1);
