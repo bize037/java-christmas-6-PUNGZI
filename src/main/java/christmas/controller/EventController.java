@@ -52,7 +52,7 @@ public class EventController {
     }
 
     private void outputAllBenefitBefore() {
-        outputView.outputDatePreviewMessage(visitDate.monthAndDate());
+        outputView.outputDatePreviewMessage(visitDate.getDate());
         outputView.orderMenuAndTotalNumberMessage();
         outputMenuAndTotalNumber();
         outputView.outputPresentMenu(menuCatalog.presentMenu());

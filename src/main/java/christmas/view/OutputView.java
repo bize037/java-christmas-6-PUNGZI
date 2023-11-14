@@ -6,9 +6,11 @@ import java.text.DecimalFormat;
 
 public class OutputView {
     private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String MONTH = "12월 ";
+    private static final String DATE = "일";
 
-    public void outputDatePreviewMessage(String date) {
-        System.out.println(date + OutputMessage.DATE_PREVIEW.getMessage() + LINE_SEPARATOR);
+    public void outputDatePreviewMessage(int date) {
+        System.out.println(MONTH + date + DATE + OutputMessage.DATE_PREVIEW.getMessage() + LINE_SEPARATOR);
     }
 
     public void orderMenuAndTotalNumberMessage() {
