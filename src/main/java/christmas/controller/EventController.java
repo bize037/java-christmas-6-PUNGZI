@@ -61,8 +61,8 @@ public class EventController {
 
     private void outputAllBenefitAfter() {
         generateBenefit(visitDate.getDate(), menuCatalog.getMenusAndTotalNumbers(), menuCatalog.getMenusTotalPay());
-        outputAllBenefitPay(benefit.allBenefitPay());
-        outputAfterSalePay(benefit.afterSalePay());
+        outputAllBenefitPay(benefit.printAllBenefitPay());
+        outputAfterSalePay(benefit.printAfterSalePay());
         outputEventBadge();
     }
 
@@ -73,7 +73,7 @@ public class EventController {
 
     private void generateBenefit(int date, HashMap<String, Integer> orderMenuAndTotalNumber, int beforeSaleTotalPay) {
         benefit = new Benefit(date, orderMenuAndTotalNumber, beforeSaleTotalPay);
-        String benefitList = benefit.christmasSale() + benefit.dayOfWeekSale() + benefit.specialSale() + benefit.presentEvent();
+        String benefitList = benefit.printChristmasSale() + benefit.printDayOfWeekSale() + benefit.printSpecialSale() + benefit.printPresentEvent();
         outputBenefit(benefitList);
     }
 

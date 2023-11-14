@@ -3,7 +3,6 @@ package christmas.domain;
 import christmas.common.constants.DayOfWeek;
 import christmas.common.constants.Menu;
 import christmas.common.utils.Utils;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class Benefit {
         return totalBenefitPrice;
     }
 
-    public String christmasSale() {
+    public String printChristmasSale() {
         int christmasSale = checkChristmasSale();
         if (date > 25 || christmasSale == 0) {
             return "";
@@ -36,14 +35,14 @@ public class Benefit {
         return "크리스마스 디데이 할인: " + Utils.minusDecformat(christmasSale) + "원" + LINE_SEPARATOR;
     }
 
-    public String dayOfWeekSale() {
+    public String printDayOfWeekSale() {
         if (dayOfWeek.equals(DayOfWeek.FRIDAY.getWeek()) || dayOfWeek.equals(DayOfWeek.SATURDAY.getWeek())) {
             return weekendSale();
         }
         return weekdaySale();
     }
 
-    public String specialSale() {
+    public String printSpecialSale() {
         if (dayOfWeek.equals("일") || date == 25) {
             totalBenefitPrice += 1_000;
             return "특별 할인: " + Utils.minusDecformat(1_000) + "원" + LINE_SEPARATOR;
@@ -51,7 +50,7 @@ public class Benefit {
         return "";
     }
 
-    public String presentEvent() {
+    public String printPresentEvent() {
         if (beforeSaleTotalPay >= 120_000) {
             totalBenefitPrice += Menu.DRINK_3.getPrice();
             return "증정 이벤트: " + Utils.minusDecformat(Menu.DRINK_3.getPrice()) + "원" + LINE_SEPARATOR;
@@ -59,11 +58,11 @@ public class Benefit {
         return "";
     }
 
-    public String allBenefitPay() {
+    public String printAllBenefitPay() {
         return Utils.decFormat(totalBenefitPrice) + "원" + LINE_SEPARATOR;
     }
 
-    public String afterSalePay() {
+    public String printAfterSalePay() {
         int afterSalePay = beforeSaleTotalPay - totalBenefitPrice;
         return Utils.decFormat(afterSalePay) + "원" + LINE_SEPARATOR;
     }
