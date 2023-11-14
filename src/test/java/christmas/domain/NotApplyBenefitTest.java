@@ -50,9 +50,24 @@ public class NotApplyBenefitTest {
         assertThat(benefit.printPresentEvent()).doesNotContain(outputSentence);
     }
 
+    @DisplayName("총혜택 금액을 정상적으로 출력하는가")
+    @ValueSource(strings = {"0원"})
+    @ParameterizedTest
+    void printAllBenefitTest(String outputSentence) {
+        addTotalBenefitPrice();
+        assertThat(benefit.printAllBenefitPay()).contains(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.APPETIZER_1.getMenu(), 1);
         }};
+    }
+
+    private void addTotalBenefitPrice() {
+        benefit.printChristmasSale();
+        benefit.printSpecialSale();
+        benefit.printDayOfWeekSale();
+        benefit.printPresentEvent();
     }
 }
