@@ -29,6 +29,13 @@ public class NotApplyBenefitTest {
         assertThat(benefit.printChristmasSale()).doesNotContain(outputSentence);
     }
 
+    @DisplayName("특별 할인 정보가 뜨지 않는가")
+    @ValueSource(strings = {"특별 할인"})
+    @ParameterizedTest
+    void printSpecialSaleTest(String outputSentence) {
+        assertThat(benefit.printSpecialSale()).doesNotContain(outputSentence);
+    }
+
     private HashMap<String, Integer> menusAndTotalNumbers() {
         return new HashMap<String, Integer>(){{
             put(Menu.APPETIZER_1.getMenu(), 1);
