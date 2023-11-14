@@ -7,6 +7,7 @@ import java.util.List;
 
 public class MenuCatalogValidate {
     private static final String ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
+    public static final String DRINK = "DRINK";
     public static final String DIGITS_PATTERN = "\\d+";
     private static final int RANGE_MIN_NUMBER = 1;
     private static final int RANGE_MAX_NUMBER = 20;
@@ -96,7 +97,7 @@ public class MenuCatalogValidate {
     private static List<String> onlyDrinks() {
         List<String> drinkMenus = new ArrayList<>();
         for (Menu menu : Menu.values()) {
-            if (menu.name().startsWith("DRINK")) {
+            if (menu.name().startsWith(DRINK)) {
                 drinkMenus.add(menu.getMenu());
             }
         }
