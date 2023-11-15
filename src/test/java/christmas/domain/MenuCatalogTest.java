@@ -37,7 +37,7 @@ public class MenuCatalogTest {
     }
 
     @DisplayName("'-'을 입력하지 않으면 예외처리 하는가")
-    @ValueSource(strings = {"양송이수프 2,초코케이크-1"})
+    @ValueSource(strings = {"양송이수프 2,초코케이크-1", "양송이수프-2,초코케이크 1"})
     @ParameterizedTest
     void notInputHyphenMenuCatalogTest(String menuAndTotalNumber) {
         assertThatThrownBy(() -> new MenuCatalog(menuAndTotalNumber))
