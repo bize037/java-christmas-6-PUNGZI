@@ -19,8 +19,8 @@ public class VisitDateTest {
     @DisplayName("공백을 입력하면 예외처리 하는가")
     @Test
     void blankValidateVisitDateTest() {
-        String input = "";
-        assertThatThrownBy(() -> new VisitDate(input))
+        String inBlank = "";
+        assertThatThrownBy(() -> new VisitDate(inBlank))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
