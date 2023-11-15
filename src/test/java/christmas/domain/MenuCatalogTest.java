@@ -27,5 +27,12 @@ public class MenuCatalogTest {
                 .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
     }
 
-
+    @DisplayName("','를 입력하지 않으면 예외처리 하는가")
+    @ValueSource(strings = {"양송이수프-2 초코케이크-1"})
+    @ParameterizedTest
+    void notInputCommaMenuCatalogTest(String menuAndTotalNumber) {
+        assertThatThrownBy(() -> new MenuCatalog(menuAndTotalNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
+    }
 }
