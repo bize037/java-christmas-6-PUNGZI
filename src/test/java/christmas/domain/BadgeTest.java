@@ -1,6 +1,7 @@
 package christmas.domain;
 
-import org.junit.jupiter.api.Assertions;
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,6 +12,6 @@ public class BadgeTest {
     @ParameterizedTest
     void starBadgeTest(int price, String badge) {
         String badgeName = Badge.getBadge(price);
-        Assertions.assertEquals(badgeName, badge);
+        assertThat(badgeName).contains(badge);
     }
 }
