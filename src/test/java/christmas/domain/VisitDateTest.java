@@ -3,6 +3,7 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -14,4 +15,13 @@ public class VisitDateTest {
         VisitDate visitDate = new VisitDate(date);
         assertThat(visitDate.getDate()).isEqualTo(Integer.parseInt(date));
     }
+
+    @DisplayName("공백을 입력하면 예외처리 하는가")
+    @Test
+    void blankValidateVisitDateTest() {
+        String input = "";
+        assertThatThrownBy(() -> new VisitDate(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
 }
