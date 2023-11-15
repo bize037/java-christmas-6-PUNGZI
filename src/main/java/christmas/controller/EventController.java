@@ -68,7 +68,8 @@ public class EventController {
 
     private void outputMenuAndTotalNumber() {
         menuCatalog.outputOrderMenuAndTotalNumber();
-        outputView.outputBeforeSaleAllPay(menuCatalog.beforeSaleTotalPay());
+        menuCatalog.beforeSaleTotalPay();
+        outputView.outputBeforeSaleAllPay(menuCatalog.getMenusTotalPay());
     }
 
     private void generateBenefit(int date, HashMap<String, Integer> orderMenuAndTotalNumber, int beforeSaleTotalPay) {

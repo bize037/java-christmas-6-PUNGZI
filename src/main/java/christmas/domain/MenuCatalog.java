@@ -47,11 +47,10 @@ public class MenuCatalog {
         return menusTotalPay;
     }
 
-    public int beforeSaleTotalPay() {
+    public void beforeSaleTotalPay() {
         for (HashMap.Entry<String, Integer> order : menusAndTotalNumbers.entrySet()) {
             addBeforeSaleTotalPay(order.getKey(), order.getValue());
         }
-        return menusTotalPay;
     }
 
     public String presentMenu() {
