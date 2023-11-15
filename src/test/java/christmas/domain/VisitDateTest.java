@@ -2,6 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import christmas.common.constants.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +22,8 @@ public class VisitDateTest {
     void blankValidateVisitDateTest() {
         String inBlank = "";
         assertThatThrownBy(() -> new VisitDate(inBlank))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_DATE.getMessage());
     }
 
     @DisplayName("문자를 입력하면 예외처리 하는가")
@@ -29,7 +31,8 @@ public class VisitDateTest {
     @ParameterizedTest
     void notNumberValidateVisitDateTest(String notNumber) {
         assertThatThrownBy(() -> new VisitDate(notNumber))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_DATE.getMessage());
     }
 
     @DisplayName("1~31 이외의 숫자를 입력하면 예외처리 하는가")
@@ -37,6 +40,7 @@ public class VisitDateTest {
     @ParameterizedTest
     void notRangeNumberValidateVisitDateTest(String notRangeNumber) {
         assertThatThrownBy(() -> new VisitDate(notRangeNumber))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_DATE.getMessage());
     }
 }
