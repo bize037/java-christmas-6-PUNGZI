@@ -84,7 +84,7 @@ public class Benefit {
 
     public String printAfterSalePay() {
         int afterSalePay = beforeSaleTotalPay - totalBenefitPrice;
-        return Utils.decFormat(afterSalePay) + "원" + LINE_SEPARATOR;
+        return Utils.decFormat(afterSalePay) + Unit.KOREA_MONEY.getUnit() + LINE_SEPARATOR;
     }
 
     // 크리스마스 할인 관련 메서드
