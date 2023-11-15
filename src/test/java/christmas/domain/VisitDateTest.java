@@ -24,4 +24,11 @@ public class VisitDateTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("문자를 입력하면 예외처리 하는가")
+    @ValueSource(strings = {"zxcv", "12asdf", "qwer3"})
+    @ParameterizedTest
+    void notNumberValidateVisitDateTest(String notNumber) {
+        assertThatThrownBy(() -> new VisitDate(notNumber))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
