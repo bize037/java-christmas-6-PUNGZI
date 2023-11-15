@@ -44,4 +44,13 @@ public class MenuCatalogTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
     }
+
+    @DisplayName("메뉴판에없는 메뉴를 입력하면 예외처리 하는가")
+    @ValueSource(strings = {"딸기케이크-3,초코케이크-1", "양송이수프-1,크림수프-2"})
+    @ParameterizedTest
+    void notInMenuListMenuCatalogTest(String menuAndTotalNumber) {
+        assertThatThrownBy(() -> new MenuCatalog(menuAndTotalNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
+    }
 }
