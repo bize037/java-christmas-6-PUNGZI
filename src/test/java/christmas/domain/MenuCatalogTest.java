@@ -3,7 +3,9 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
+import christmas.common.constants.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -15,4 +17,15 @@ public class MenuCatalogTest {
         assertThatCode(() -> new MenuCatalog(menuAndTotalNumber))
                 .doesNotThrowAnyException();
     }
+
+    @DisplayName("공백을 입력하면 예외처리 하는가")
+    @Test
+    void blankValidateMenuCatalogTest() {
+        String inBlank = "";
+        assertThatThrownBy(() -> new MenuCatalog(inBlank))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
+    }
+
+
 }
