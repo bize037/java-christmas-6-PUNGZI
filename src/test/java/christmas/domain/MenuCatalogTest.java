@@ -62,4 +62,13 @@ public class MenuCatalogTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
     }
+
+    @DisplayName("메뉴 개수의 합이 20을 초과하면 예외처리 하는가")
+    @ValueSource(strings = {"바비큐립-15,양송이수프-7"})
+    @ParameterizedTest
+    void addTotalMenuCatalogTest(String menuAndTotalNumber) {
+        assertThatThrownBy(() -> new MenuCatalog(menuAndTotalNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_ORDER.getMessage());
+    }
 }
