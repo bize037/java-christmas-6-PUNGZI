@@ -31,4 +31,12 @@ public class VisitDateTest {
         assertThatThrownBy(() -> new VisitDate(notNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("1~31 이외의 숫자를 입력하면 예외처리 하는가")
+    @ValueSource(strings = {"0", "32"})
+    @ParameterizedTest
+    void notRangeNumberValidateVisitDateTest(String notRangeNumber) {
+        assertThatThrownBy(() -> new VisitDate(notRangeNumber))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
