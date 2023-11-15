@@ -22,6 +22,7 @@ public class MenuCatalog {
     private static final int PRESENT_MENU_BASE_PAY = 120_000;
     private static final int PRESENT_MENU_COUNT = 1;
     private static final String NOTHING = "없음";
+    private static final String NOT_PRINT = "";
     private static final String SPACE = " ";
     private static final String COUNT_UNIT = "개";
 
@@ -64,7 +65,7 @@ public class MenuCatalog {
         if (menusTotalPay >= PRESENT_MENU_BASE_PAY - Menu.DRINK_3.getPrice() && menusTotalPay < PRESENT_MENU_BASE_PAY) {
             return Utils.decFormat(PRESENT_MENU_BASE_PAY - menusTotalPay) + Unit.KOREA_MONEY.getUnit();
         }
-        return "";
+        return NOT_PRINT;
     }
 
     private void addBeforeSaleTotalPay(String menu, int menuConut) {
