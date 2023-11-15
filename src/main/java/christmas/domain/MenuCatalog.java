@@ -61,7 +61,7 @@ public class MenuCatalog {
         return NOTHING;
     }
 
-    public String presentMenuMoreNeedPay() {
+    public String presentMenuMoreNeedPay() { // 추가 기능
         if (menusTotalPay >= PRESENT_MENU_BASE_PAY - Menu.DRINK_3.getPrice() && menusTotalPay < PRESENT_MENU_BASE_PAY) {
             return Utils.decFormat(PRESENT_MENU_BASE_PAY - menusTotalPay) + Unit.KOREA_MONEY.getUnit();
         }
